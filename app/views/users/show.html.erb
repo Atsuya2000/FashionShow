@@ -1,0 +1,65 @@
+<main>
+  <div class="col-md-10 offset-md-1">
+      <h2 class="py-5 text-center">User Info</h2>
+  <table class="table">
+  <tbody>
+  <tr>
+    <th>
+      <%= attachment_image_tag current_user, :image, :fill, 100, 100, fallback: "no_image.png" %>
+    </th>
+    <th>follow</th>
+    <th><% current_user.follower.count %></th>
+    <th>follower</th>
+    <th><% current_user.followed.count %></th>
+  </tr>
+  <tr>
+	  <th>name</th>
+	  <th><%= current_user.name %></th>
+  </tr>
+  <tr>
+	  <th>introduction</th>
+	  <th><%= current_user.introduction %></th>
+  </tr>
+</tbody>
+</table>
+  <div class="row">
+  <%= link_to edit_user_path(current_user), class: 'btn btn-default' do %>
+    <i class="fas fa-user-cog"></i>
+  <% end %>
+</div>
+</div>
+
+<%if @fashion.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@fashion.errors.count, "error") %> prohibited this fashion from being saved:</h2>
+   <ul>
+     <% @fashion.errors.full_messages.each do |message| %>
+       <li><%= message %></li>
+     <% end %>
+   </ul>
+  </div>
+<% end %>
+    </div>
+    <div class="col-md-10 offset-md-1">
+      <h2 class="py-5 text-center">User Fashions</h2>
+      <table class="table table-hover table-inverse">
+  <tbody>
+    <% @fashions.each do |fashion| %>
+      <tr>
+        <td>
+          <%= attachment_image_tag fashion, :image, :fill, 120, 120, fallback: "no_image.png" %>
+        </td>
+        <td>
+          <%= fashion.introduction %>
+        </td>
+        <td>
+          <%= link_to "Edit", edit_fashion_path(fashion.id), class: 'btn btn-default' %>
+        </td>
+        <td>
+          <%= link_to "Destroy", fashion_path(fashion.id), class: 'btn btn-default', method: :delete, "data-confirm" => "本当に削除しますか？" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+    </table>
+</main>

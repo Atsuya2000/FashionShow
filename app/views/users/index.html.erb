@@ -1,0 +1,60 @@
+<main>
+  <div class="container px-5 px-sm-0">
+<%if @fashion.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@fashion.errors.count, "error") %> prohibited this fashion from being saved:</h2>
+   <ul>
+     <% @fashion.errors.full_messages.each do |message| %>
+       <li><%= message %></li>
+     <% end %>
+   </ul>
+  </div>
+<% end %>
+    </div>
+    <div class="col-md-10 offset-md-1">
+      <h2 class="py-5 text-center">Users</h2>
+      <table class="table table-hover table-inverse">
+  <thead>
+    <tr>
+      <th>image</th>
+      <th>name</th>
+      <th>follow</th>
+      <th>follower</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.each do |user| %>
+      <tr>
+        <td>
+          <%= link_to user_path(user.id) do %>
+            <%= attachment_image_tag user, :image, fallback: "no_image.png", size: "40x40" %>
+          <% end %>
+        </td>
+        <td>
+          <%= user.name %>
+        </td>
+        <td>
+          <p><%= current_user.follower.count %></p>
+        </td>
+        <td>
+          <p><%= current_user.followed.count %></p>
+        </td>
+        <td>
+          <% if current_user.following?(user) %>
+            <%= link_to 'unfollow', unfollow_path(user.id), method: :POST, class: 'btn btn-default' %>
+          <% else %>
+            <%= link_to 'follow', follow_path(user.id), method: :POST, class: 'btn btn-default' %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to "Show", user_path(user.id), class: 'btn btn-default' %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+</main>

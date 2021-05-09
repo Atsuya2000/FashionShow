@@ -1,0 +1,73 @@
+<main>
+<%if @fashion_new.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@fashion_new.errors.count, "error") %> prohibited this fashion from being saved:</h2>
+   <ul>
+     <% @fashion_new.errors.full_messages.each do |message| %>
+       <li><%= message %></li>
+     <% end %>
+   </ul>
+  </div>
+<% end %>
+    </div>
+    <div class="col-md-10 offset-md-1">
+      <h2 class="py-4 text-center">fashion detail</h2>
+      <div class="py-4 text-center">
+         <%= attachment_image_tag @fashion, :image, fallback: "no_image.png", size: "200x200" %>
+      </div>
+  <table class="table table-hover table-inverse">
+  <tbody>
+      <tr>
+        <td>
+          <%= link_to user_path(@fashion.user.id) do %>
+            <%= attachment_image_tag @fashion.user, :image, fallback: "no_image.png", size: "40x40" %>
+            <%= @fashion.user.name %>
+          <% end %>
+        </td>
+        <td>
+          <%=@fashion.introduction %>
+        </td>
+        <td>
+           <% if @fashion.favorited_by?(current_user) %>
+              <p>
+                <%= link_to fashion_favorites_path(@fashion), method: :delete do %>
+                  ♥<%= @fashion.favorites.count %>
+                <% end %>
+              </p>
+              <% else %>
+              <p>
+                <%= link_to fashion_favorites_path(@fashion), method: :post do %>
+                  ♡<%= @fashion.favorites.count %>
+                <% end %>
+              </p>
+            <% end %>
+        </td>
+        <td>
+          <p>comment：<%= @fashion.fashion_comments.count %></p>
+        </td>
+      </tr>
+      </table>
+      <div class="comments">
+  <% @fashion.fashion_comments.each do |fashion_comment| %>
+    <%= link_to user_path(fashion_comment.user.id) do %>
+      <%= attachment_image_tag fashion_comment.user, :image, fallback: "no_image.png", size: "40x40" %>
+      <%= @fashion.user.name %>
+    <% end %>
+    <%= fashion_comment.comment %>
+  <% if fashion_comment.user == current_user %>
+    <div class="comment-delete">
+      <%= link_to "Destroy", fashion_fashion_comment_path(fashion_comment.fashion, fashion_comment), method: :delete %>
+    </div>
+  <% end %>
+<% end %>
+</div>
+<div class="new-comment">
+<%= form_with(model:[@fashion, @fashion_comment], local: true) do |f| %>
+  <%= f.text_area :comment, rows:'5', size: "80x5" %><br />
+  <%= f.submit "submit" %>
+<% end %>
+    </div>
+    </div>
+</div>
+</div>
+</main>

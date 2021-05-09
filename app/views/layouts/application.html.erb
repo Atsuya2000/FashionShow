@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>fashion show</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <h3>Fashion Show</h3>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+            <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to new_fashion_path, class: 'nav-link text-dark' do %>
+                <i class="fas fa-angle-double-right">NewPost</i>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to user_path(current_user.id), class: 'nav-link text-dark' do %>
+                <i class="fas fa-users">MyPages</i>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to users_path, class: 'nav-link text-dark' do %>
+                <i class="fas fa-users">Users</i>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to fashions_path, class: 'nav-link text-dark' do %>
+                <i class="fas fa-tshirt">Fashions</i>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-dark' do %>
+                <i class="fas fa-sign-out-alt">Logout</i>
+              <% end %>
+            </li>
+            <% else %>
+            <li class="nav-item">
+              <%= link_to "Home", root_path, class: 'fas fa-home nav-link text-dark' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Sign up", new_user_registration_path, class: 'fas fa-user-plus nav-link text-dark' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Login", new_user_session_path, class: 'fas fa-sign-in-alt nav-link text-dark' %>
+            </li>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <%= flash[:notice] %>
+    <main class="mb-auto">
+    <%= yield %>
+    </main>
+    <footer>
+      <div class="py-5 text-center">
+        <ul class="p-0 list-unstyled">
+          <li>
+            <a href="" title="" class="text-black-50">CopyRight FashionShow.inc</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

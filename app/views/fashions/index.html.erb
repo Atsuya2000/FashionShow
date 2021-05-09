@@ -1,0 +1,45 @@
+<main>
+  <%= flash[:notice] %>
+  <%if @fashion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fashion.errors.count, "error") %> prohibited this fashion from being saved:</h2>
+        <ul>
+         <% @fashion.errors.full_messages.each do |message| %>
+           <li><%= message %></li>
+         <% end %>
+        </ul>
+    </div>
+  <% end %>
+
+<div class="col-md-10 offset-md-1">
+  <h2 class="py-4 text-center">Fashions</h2>
+  <table class="table table-striped table-bordered">
+    <% @fashions.each do |fashion| %>
+      <tr>
+        <td><%= attachment_image_tag fashion, :image, :fill, 160, 160, fallback: "no_image.png" %></td>
+        <td><%= fashion.introduction %></td>
+        <td>
+           <% if fashion.favorited_by?(current_user) %>
+              <p>
+                <%= link_to fashion_favorites_path(fashion.id), method: :delete do %>
+                  ♥<%= fashion.favorites.count %>
+                <% end %>
+              </p>
+              <% else %>
+              <p>
+                <%= link_to fashion_favorites_path(fashion.id), method: :post do %>
+                  ♡<%= fashion.favorites.count %>
+                <% end %>
+              </p>
+            <% end %>
+        </td>
+        <td><%= fashion.fashion_comments.count %> comment</td>
+        <td>
+          <%= link_to "Show", fashion_path(fashion.id), class: 'btn btn-default' %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate @fashions %>
+  </div>
+</main>
