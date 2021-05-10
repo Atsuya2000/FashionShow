@@ -1,24 +1,34 @@
-# README
+hionShow
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
+ファッション投稿サイト
 
-Things you may want to cover:
+### サイトテーマ
+よりオシャレに
 
-* Ruby version
+### テーマを選んだ理由
+このアプリケーションを使用するユーザーがよりオシャレになって欲しいと思ったため
 
-* System dependencies
+### ターゲットユーザ
+10代から20代の若者
 
-* Configuration
+### 主な利用シーン
+服装で悩んだときに、他の人の服装を見て参考にする事ができる
 
-* Database creation
+## 設計書
+藤永敦也
 
-* Database initialization
+## チャレンジ要素一覧
+<https://docs.google.com/spreadsheets/d/1g1IGcKZULkBif43rAuRehAEh7zqf61wyxWwtctgLXnA/edit#gid=0>
 
-* How to run the test suite
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
 
-* Services (job queues, cache servers, search engines, etc.)
+## 使用素材
+- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
+- 使用しない場合は、使用素材の項目をREADMEから削除してください。
 
-* Deployment instructions
-
-* ...
