@@ -1,65 +1,71 @@
-<main>
-  <div class="col-md-10 offset-md-1">
-      <h2 class="py-5 text-center">User Info</h2>
-  <table class="table">
-  <tbody>
-  <tr>
-    <th>
-      <%= attachment_image_tag current_user, :image, :fill, 100, 100, fallback: "no_image.png" %>
-    </th>
-    <th>follow</th>
-    <th><% current_user.follower.count %></th>
-    <th>follower</th>
-    <th><% current_user.followed.count %></th>
-  </tr>
-  <tr>
-	  <th>name</th>
-	  <th><%= current_user.name %></th>
-  </tr>
-  <tr>
-	  <th>introduction</th>
-	  <th><%= current_user.introduction %></th>
-  </tr>
-</tbody>
-</table>
+<main class="container">
   <div class="row">
-  <%= link_to edit_user_path(current_user), class: 'btn btn-default' do %>
-    <i class="fas fa-user-cog"></i>
-  <% end %>
-</div>
-</div>
-
-<%if @fashion.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@fashion.errors.count, "error") %> prohibited this fashion from being saved:</h2>
-   <ul>
-     <% @fashion.errors.full_messages.each do |message| %>
-       <li><%= message %></li>
-     <% end %>
-   </ul>
-  </div>
-<% end %>
-    </div>
     <div class="col-md-10 offset-md-1">
-      <h2 class="py-5 text-center">User Fashions</h2>
-      <table class="table table-hover table-inverse">
-  <tbody>
-    <% @fashions.each do |fashion| %>
-      <tr>
-        <td>
-          <%= attachment_image_tag fashion, :image, :fill, 120, 120, fallback: "no_image.png" %>
-        </td>
-        <td>
-          <%= fashion.introduction %>
-        </td>
-        <td>
-          <%= link_to "Edit", edit_fashion_path(fashion.id), class: 'btn btn-default' %>
-        </td>
-        <td>
-          <%= link_to "Destroy", fashion_path(fashion.id), class: 'btn btn-default', method: :delete, "data-confirm" => "本当に削除しますか？" %>
-        </td>
-      </tr>
+      <div class="py-5">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>
+                <div class="img">
+                  <%= attachment_image_tag current_user, :image, :fill, 100, 100, fallback: "no_image.png", class: "user_profile_image" %>
+                </div>
+              </th>
+              <th>
+                <p>follow</p>
+                <p><%= current_user.follower.count %></p>
+              </th>
+              <th>
+                <p>follower</p>
+                <p><%= current_user.followed.count %></p>
+              </th>
+            </tr>
+            <tr>
+          	  <th>name</th>
+          	  <th><%= current_user.name %></th>
+            </tr>
+            <tr>
+          	  <th>introduction</th>
+          	  <th><%= current_user.introduction %></th>
+            </tr>
+          </tbody>
+        </table>
+        <%= link_to edit_user_path(current_user), class: 'btn btn-light' do %>
+          <i class="fas fa-user-cog"></i>
+        <% end %>
+      </div>
+    </div>
+
+    <%if @fashion.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@fashion.errors.count, "error") %> prohibited this fashion from being saved:</h2>
+          <ul>
+            <% @fashion.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+      </div>
     <% end %>
-    </tbody>
-    </table>
+          <% @fashions.each do |fashion| %>
+            <div class="col-sm-3 offset-md-1">
+              <p class="post_image">
+                <% fashion.fashion_images.each do |fashion_image| %>
+                  <%= link_to fashion_path(fashion.id) do %>
+                    <%= attachment_image_tag fashion_image, :image, :fill, 200, 200, fallback: "no_image.png" %>
+                  <% end %>
+                <% end %>
+              </p>
+              <p>
+                <%= fashion.introduction %>
+              </p>
+              <div class="dropdown">
+                <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="#"><%= link_to "Edit", edit_fashion_path(fashion.id), class: 'btn btn-light' %></a>
+                  <a class="dropdown-item" href="#"><%= link_to "Destroy", fashion_path(fashion.id), class: 'btn btn-light', method: :delete, "data-confirm" => "本当に削除しますか？" %></a>
+                </div>
+              </div>
+            </div>
+          <% end %>
+      </div>
+  </div>
 </main>

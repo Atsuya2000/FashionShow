@@ -8,17 +8,15 @@ class FashionsController < ApplicationController
     @fashion.user = current_user
     if @fashion.save
       flash[:notice] = 'You have created fashion successfully.'
-       redirect_to fashion_path(@fashion.id)
+       redirect_to user_path(current_user.id)
     else
-      @fashions = Fashion.all
-      @user = current_user
-      render :index
+      render :new
     end
   end
 
   def index
     @fashion = Fashion.new
-    @fashions = Fashion.page(params[:page]).reverse_order
+    @fashions = Fashion.page(params[:page]).reverse_order.per(9)
     @user = User.all
   end
 
@@ -30,6 +28,7 @@ class FashionsController < ApplicationController
 
   def edit
     @fashion = Fashion.find(params[:id])
+    @fashion.fashion_images.build
     if @fashion.user == current_user
       render :edit
     else
@@ -41,7 +40,7 @@ class FashionsController < ApplicationController
     @fashion = Fashion.find(params[:id])
     if @fashion.update(fashion_params)
        flash[:notice] = 'fashion was successfully updated.'
-       redirect_to fashion_path(@fashion.id)
+       redirect_to user_path(current_user.id)
     else
        render :edit
     end
@@ -50,11 +49,11 @@ class FashionsController < ApplicationController
   def destroy
     @fashion = Fashion.find(params[:id])
     @fashion.destroy
-    redirect_to fashions_path
+    redirect_to user_path(current_user.id)
   end
 
   private
   def fashion_params
-    params.require(:fashion).permit(:name, :introduction, :image)
+    params.require(:fashion).permit(:introduction, fashion_images_images: [])
   end
 end

@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def index
     @user = User.all
     @fashions = Fashion.all

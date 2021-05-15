@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>fashion show</title>
+    <title>Fashion Show</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
   </head>
 
   <body class="d-flex flex-column vh-100">
@@ -21,41 +23,41 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
-            <li class="nav-item">
-              <%= link_to new_fashion_path, class: 'nav-link text-dark' do %>
-                <i class="fas fa-angle-double-right">NewPost</i>
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to user_path(current_user.id), class: 'nav-link text-dark' do %>
-                <i class="fas fa-users">MyPages</i>
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to users_path, class: 'nav-link text-dark' do %>
-                <i class="fas fa-users">Users</i>
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to fashions_path, class: 'nav-link text-dark' do %>
-                <i class="fas fa-tshirt">Fashions</i>
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-dark' do %>
-                <i class="fas fa-sign-out-alt">Logout</i>
-              <% end %>
-            </li>
+              <li class="nav-item">
+                <%= link_to new_fashion_path, class: 'nav-link text-dark' do %>
+                  <i class="fas fa-angle-double-right">NewPost</i>
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to user_path(current_user.id), class: 'nav-link text-dark' do %>
+                  <i class="fas fa-user">MyPages</i>
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to users_path, class: 'nav-link text-dark' do %>
+                  <i class="fas fa-users">Users</i>
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to fashions_path, class: 'nav-link text-dark' do %>
+                  <i class="fas fa-tshirt">Fashions</i>
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-dark' do %>
+                  <i class="fas fa-sign-out-alt">Logout</i>
+                <% end %>
+              </li>
             <% else %>
-            <li class="nav-item">
-              <%= link_to "Home", root_path, class: 'fas fa-home nav-link text-dark' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Sign up", new_user_registration_path, class: 'fas fa-user-plus nav-link text-dark' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Login", new_user_session_path, class: 'fas fa-sign-in-alt nav-link text-dark' %>
-            </li>
+              <li class="nav-item">
+                <%= link_to "Home", root_path, class: 'fas fa-home nav-link text-dark' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Sign up", new_user_registration_path, class: 'fas fa-user-plus nav-link text-dark' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Login", new_user_session_path, class: 'fas fa-sign-in-alt nav-link text-dark' %>
+              </li>
             <% end %>
             </ul>
           </div>

@@ -3,13 +3,13 @@ class FavoritesController < ApplicationController
     fashion = Fashion.find(params[:fashion_id])
     favorite = current_user.favorites.new(fashion_id: fashion.id)
     favorite.save
-    redirect_to fashion_path(fashion)
+    redirect_back fallback_location: root_path
   end
 
   def destroy
     fashion = Fashion.find(params[:fashion_id])
     favorite = current_user.favorites.find_by(fashion_id: fashion.id)
     favorite.destroy
-    redirect_to fashion_path(fashion)
+    redirect_back fallback_location: root_path
   end
 end
