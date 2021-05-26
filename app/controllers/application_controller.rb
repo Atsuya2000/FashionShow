@@ -7,6 +7,15 @@ class ApplicationController < ActionController::Base
     user_path(resource)
   end
 
+  def search
+    @fashion = Fashion.new
+    @tag_list = Tag.all  #こっちの投稿一覧表示ページでも全てのタグを表示するために、タグを全取得
+    tag = Tag.find(params[:tag])  #クリックしたタグを取得
+    @fashions = tag.fashions.all.page(params[:page]).reverse_order.per(9) #クリックしたタグに紐付けられた投稿を全て表示
+    @user = User.all
+    render template: "fashions/index.html.erb"
+  end
+
   protected
 
   def configure_permitted_parameters

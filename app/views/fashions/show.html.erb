@@ -25,23 +25,30 @@
                     <%= @fashion.user.name %>
                   <% end %>
                 </td>
-                <td>
-                  <%=@fashion.introduction %>
-                </td>
-                <td>
+                <td id=<%="likes_buttons_#{@fashion.id}"%>>
                    <% if @fashion.favorited_by?(current_user) %>
                       <p>
-                        <%= link_to fashion_favorites_path(@fashion), method: :delete do %>
+                        <%= link_to fashion_favorites_path(@fashion), method: :delete, remote: true do %>
                           ♥<%= @fashion.favorites.count %>
                         <% end %>
                       </p>
                       <% else %>
                       <p>
-                        <%= link_to fashion_favorites_path(@fashion), method: :post do %>
+                        <%= link_to fashion_favorites_path(@fashion), method: :post, remote: true do %>
                           ♡<%= @fashion.favorites.count %>
                         <% end %>
                       </p>
                     <% end %>
+                </td>
+                <td>
+                  <%=@fashion.introduction %>
+                </td>
+                <td>
+                  <% @fashion.tags.each do |tag| %>
+                  <ul class="tag-list">
+                    <li class="tag-style">#<%= tag.tag_name %></li>
+                  </ul>
+                <% end %>
                 </td>
                 <td>
                   <p>comment：<%= @fashion.fashion_comments.count %></p>
@@ -64,21 +71,11 @@
         </div>
         <div class="new-comment">
           <%= form_with(model:[@fashion, @fashion_comment], local: true) do |f| %>
-            <%= f.text_area :comment, rows:'5', size: "80x5" %><br />
+            <%= f.text_area :comment, rows:'5', size: "80x5", required: true %><br />
             <%= f.submit "submit" %>
           <% end %>
         </div>
       </div>
     </div>
   </div>
-   <%if @fashion_comment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@fashion_comment.errors.count, "error") %> prohibited this fashion from being saved:</h2>
-        <ul>
-          <% @fashion_comment.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-    </div>
-  <% end %>
 </main>

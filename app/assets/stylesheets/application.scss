@@ -17,3 +17,13 @@
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
 
+.tag-list {
+  list-style: none;
+}
+
+.tag-style {
+    background-color: lightgray;
+    display: inline-block;
+    padding: 4px;
+    border-radius: 6px;
+}

@@ -24,6 +24,12 @@
             <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
               <li class="nav-item">
+                <%= form_tag(search_path, method: :post)  do %>
+                  <%= select_tag "tag", options_from_collection_for_select(Tag.all, "id", "tag_name") %>
+                  <%= submit_tag 'search'%>
+                <% end %>
+              </li>
+              <li class="nav-item">
                 <%= link_to new_fashion_path, class: 'nav-link text-dark' do %>
                   <i class="fas fa-angle-double-right">NewPost</i>
                 <% end %>

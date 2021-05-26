@@ -7,25 +7,25 @@
             <tr>
               <th>
                 <div class="img">
-                  <%= attachment_image_tag current_user, :image, :fill, 100, 100, fallback: "no_image.png", class: "user_profile_image" %>
+                  <%= attachment_image_tag @user, :image, :fill, 100, 100, fallback: "no_image.png", class: "user_profile_image" %>
                 </div>
               </th>
               <th>
                 <p>follow</p>
-                <p><%= current_user.follower.count %></p>
+                <p><%= @user.follower.count %></p>
               </th>
               <th>
                 <p>follower</p>
-                <p><%= current_user.followed.count %></p>
+                <p><%= @user.followed.count %></p>
               </th>
             </tr>
             <tr>
           	  <th>name</th>
-          	  <th><%= current_user.name %></th>
+          	  <th><%= @user.name %></th>
             </tr>
             <tr>
           	  <th>introduction</th>
-          	  <th><%= current_user.introduction %></th>
+          	  <th><%= @user.introduction %></th>
             </tr>
           </tbody>
         </table>

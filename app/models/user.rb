@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  attachment :image
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
   has_many :fashions, dependent: :destroy
   has_many :fashion_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -6,7 +10,6 @@ class User < ApplicationRecord
   has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :following_user, through: :follower, source: :followed
   has_many :follower_user, through: :followed, source: :follower
-
 
   validates :name, presence: true, length: { in: 2..20 }, uniqueness: true
   validates :introduction, length: { maximum: 50 }
@@ -23,7 +26,4 @@ class User < ApplicationRecord
     following_user.include?(user)
   end
 
-  attachment :image
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
 end

@@ -24,10 +24,29 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:notice] = 'fashion was successfully updated.'
-      redirect_to user_path(@user.id)
+      redirect_to user_path(current_user.id)
     else
       render :edit
     end
+  end
+
+  def search
+  redirect_to users_path if params[:keyword] == ""
+
+  split_keyword = params[:keyword].split(/[[:blank:]]+/)
+
+  users = []
+    split_keyword.each do |keyword|  # 分割したキーワードごとに検索
+      next if keyword == ""
+      users << User.where('name LIKE(?)', "%#{keyword}%").pluck('id') # 部分一致で検索
+    end
+
+    # @user = User.all
+    @user = User.where(id: users.flatten).page(params[:page]).reverse_order.per(9)
+    @fashions = Fashion.all
+    @fashion = Fashion.new
+
+    render action: :index
   end
 
   private
@@ -35,4 +54,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :introduction, :image)
   end
+
 end

@@ -10,7 +10,13 @@
       <% end %>
       <%= f.attachment_field :fashion_images_images, multiple: true %>
       <label for="inputIntroduction">Opinion</label>
-      <%= f.text_field :introduction, autofocus: true, id:"inputintroduction" %>
+      <%= f.text_field :introduction, autofocus: true, id:"inputintroduction" %></br>
+      <label for="inputTag">Tag</label>
+      <% if @fashion.tag_maps.present? %>
+        <% @fashion.tags.each do |tag| %>
+          <%= f.text_field :tag_name, autofocus: true, id:"tag_name" %>
+        <% end %>
+      <% end %>
       <%= f.submit "Update" %>
     <% end %>
   </div>

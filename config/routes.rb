@@ -7,13 +7,20 @@ Rails.application.routes.draw do
     get 'followers' => 'relationships#followers', as: 'followers'
   end
 
+  post 'users/search', to: 'users#search'
+
   resources :fashions, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
     resource :favorites, only: [:create, :destroy]
     resources :fashion_comments, only: [:create, :destroy]
   end
 
+  post 'fashions/search', to: 'fashions#search'
+
   post 'follow/:id' => 'relationships#follow', as: 'follow'
   post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow'
 
   resources :relationships, only: [:create, :destroy]
+
+  post 'search', to: 'application#search'
+
 end
