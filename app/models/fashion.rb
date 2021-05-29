@@ -12,7 +12,7 @@ class Fashion < ApplicationRecord
 
     def discount_cannot_be_greater_than_total_value
       if fashion_images.size == 0
-        errors.add(:base, "There is not an image")
+        # errors.add(:base, "There is not an image")
       end
     end
 
