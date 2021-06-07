@@ -6,8 +6,8 @@ class User < ApplicationRecord
   has_many :fashions, dependent: :destroy
   has_many :fashion_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :follower, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
+  has_many :followed, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
   has_many :following_user, through: :follower, source: :followed
   has_many :follower_user, through: :followed, source: :follower
 
@@ -25,5 +25,4 @@ class User < ApplicationRecord
   def following?(user)
     following_user.include?(user)
   end
-
 end

@@ -31,13 +31,14 @@ class UsersController < ApplicationController
   end
 
   def search
-  redirect_to users_path if params[:keyword] == ""
+    redirect_to users_path if params[:keyword] == ''
 
-  split_keyword = params[:keyword].split(/[[:blank:]]+/)
+    split_keyword = params[:keyword].split(/[[:blank:]]+/)
 
-  users = []
+    users = []
     split_keyword.each do |keyword|  # 分割したキーワードごとに検索
-      next if keyword == ""
+      next if keyword == ''
+
       users << User.where('name LIKE(?)', "%#{keyword}%").pluck('id') # 部分一致で検索
     end
 
@@ -54,5 +55,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :introduction, :image)
   end
-
 end

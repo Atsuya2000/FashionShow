@@ -10,7 +10,7 @@ class FashionsController < ApplicationController
     if @fashion.save
       @fashion.save_tag(tag_list)
       flash[:notice] = 'You have created fashion successfully.'
-       redirect_to user_path(current_user.id)
+      redirect_to user_path(current_user.id)
     else
       render :new
     end
@@ -48,7 +48,7 @@ class FashionsController < ApplicationController
       flash[:notice] = 'fashion was successfully updated.'
       redirect_to user_path(current_user.id)
     else
-       render :edit
+      render :edit
     end
   end
 
@@ -59,13 +59,14 @@ class FashionsController < ApplicationController
   end
 
   def search
-  redirect_to fashions_path if params[:keyword] == ""
+    redirect_to fashions_path if params[:keyword] == ''
 
-  split_keyword = params[:keyword].split(/[[:blank:]]+/)
+    split_keyword = params[:keyword].split(/[[:blank:]]+/)
 
-  fashions = []
+    fashions = []
     split_keyword.each do |keyword|  # 分割したキーワードごとに検索
-      next if keyword == ""
+      next if keyword == ''
+
       fashions << Fashion.where('introduction LIKE(?)', "%#{keyword}%").pluck('id') # 部分一致で検索
     end
 
@@ -78,6 +79,7 @@ class FashionsController < ApplicationController
   end
 
   private
+
   def fashion_params
     params.require(:fashion).permit(:introduction, fashion_images_images: [])
   end
