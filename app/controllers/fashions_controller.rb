@@ -19,7 +19,7 @@ class FashionsController < ApplicationController
   def index
     @tag_list = Tag.all
     @fashion = Fashion.new
-    @fashions = Fashion.page(params[:page]).reverse_order.per(9)
+    @fashions = Fashion.page(params[:page]).reverse_order.per(6)
     @user = User.all
   end
 
