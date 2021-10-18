@@ -10,7 +10,7 @@
     </div>
   <% end %>
   <div class="col-md-10 offset-md-1">
-      <h2 class="py-3"></h2>
+      <h2 class="py-4"></h2>
         <div class="py-4 text-center">
           <% @fashion.fashion_images.each do |fashion_image| %>
             <%= attachment_image_tag fashion_image, :image, :fill, 200, 200, fallback: "no_image.png" %>
