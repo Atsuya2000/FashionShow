@@ -10,72 +10,70 @@
     </div>
   <% end %>
   <div class="col-md-10 offset-md-1">
-      <h2 class="py-4"></h2>
-        <div class="py-4 text-center">
-          <% @fashion.fashion_images.each do |fashion_image| %>
-            <%= attachment_image_tag fashion_image, :image, :fill, 200, 200, fallback: "no_image.png" %>
-          <% end %>
-        </div>
-          <table class="table table-hover table-inverse">
-            <tmain>
-              <tr>
-                <td>
-                  <%= link_to user_path(@fashion.user.id) do %>
-                    <%= attachment_image_tag @fashion.user, :image, fallback: "no_image.png", size: "40x40" %>
-                    <%= @fashion.user.name %>
-                  <% end %>
-                </td>
-                <td id=<%="likes_buttons_#{@fashion.id}"%>>
-                   <% if @fashion.favorited_by?(current_user) %>
-                      <p>
-                        <%= link_to fashion_favorites_path(@fashion), method: :delete, remote: true do %>
-                          ♥<%= @fashion.favorites.count %>
-                        <% end %>
-                      </p>
-                      <% else %>
-                      <p>
-                        <%= link_to fashion_favorites_path(@fashion), method: :post, remote: true do %>
-                          ♡<%= @fashion.favorites.count %>
-                        <% end %>
-                      </p>
-                    <% end %>
-                </td>
-                <td>
-                  <%=@fashion.introduction %>
-                </td>
-                <td>
-                  <% @fashion.tags.each do |tag| %>
-                  <ul class="tag-list">
-                    <li class="tag-style">#<%= tag.tag_name %></li>
-                  </ul>
-                <% end %>
-                </td>
-                <td>
-                  <p>comment：<%= @fashion.fashion_comments.count %></p>
-                </td>
-              </tr>
-          </table>
-        <div class="comments">
-          <% @fashion.fashion_comments.each do |fashion_comment| %>
-            <%= link_to user_path(fashion_comment.user.id) do %>
-              <%= attachment_image_tag fashion_comment.user, :image, fallback: "no_image.png", size: "40x40" %>
+    <div class="py-3"></div>
+    <div class="py-4 text-center">
+      <% @fashion.fashion_images.each do |fashion_image| %>
+        <%= attachment_image_tag fashion_image, :image, :fill, 200, 200, fallback: "no_image.png" %>
+      <% end %>
+    </div>
+    <table class="table table-hover table-inverse">
+      <tmain>
+        <tr>
+          <td>
+            <%= link_to user_path(@fashion.user.id) do %>
+              <%= attachment_image_tag @fashion.user, :image, fallback: "no_image.png", size: "40x40" %>
               <%= @fashion.user.name %>
             <% end %>
-            <%= fashion_comment.comment %>
-            <% if fashion_comment.user == current_user %>
-              <div class="comment-delete">
-                <%= link_to "Destroy", fashion_fashion_comment_path(fashion_comment.fashion, fashion_comment), method: :delete %>
-              </div>
-            <% end %>
+          </td>
+          <td id=<%="likes_buttons_#{@fashion.id}"%>>
+             <% if @fashion.favorited_by?(current_user) %>
+                <p>
+                  <%= link_to fashion_favorites_path(@fashion), method: :delete, remote: true do %>
+                    ♥<%= @fashion.favorites.count %>
+                  <% end %>
+                </p>
+                <% else %>
+                <p>
+                  <%= link_to fashion_favorites_path(@fashion), method: :post, remote: true do %>
+                    ♡<%= @fashion.favorites.count %>
+                  <% end %>
+                </p>
+              <% end %>
+          </td>
+          <td>
+            <%=@fashion.introduction %>
+          </td>
+          <td>
+            <% @fashion.tags.each do |tag| %>
+            <ul class="tag-list">
+              <li class="tag-style">#<%= tag.tag_name %></li>
+            </ul>
           <% end %>
-        </div>
-        <div class="new-comment">
-          <%= form_with(model:[@fashion, @fashion_comment], local: true) do |f| %>
-            <%= f.text_area :comment, rows:'5', size: "80x5", required: true %><br />
-            <%= f.submit "submit" %>
-          <% end %>
-        </div>
-      </div>
+          </td>
+          <td>
+            <p>comment：<%= @fashion.fashion_comments.count %></p>
+          </td>
+        </tr>
+    </table>
+    <div class="comments">
+      <% @fashion.fashion_comments.each do |fashion_comment| %>
+        <%= link_to user_path(fashion_comment.user.id) do %>
+          <%= attachment_image_tag fashion_comment.user, :image, fallback: "no_image.png", size: "40x40" %>
+          <%= @fashion.user.name %>
+        <% end %>
+        <%= fashion_comment.comment %>
+        <% if fashion_comment.user == current_user %>
+          <div class="comment-delete">
+            <%= link_to "Destroy", fashion_fashion_comment_path(fashion_comment.fashion, fashion_comment), method: :delete %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="new-comment">
+      <%= form_with(model:[@fashion, @fashion_comment], local: true) do |f| %>
+        <%= f.text_area :comment, rows:'5', size: "80x5", required: true %><br />
+        <%= f.submit "submit" %>
+      <% end %>
     </div>
   </div>
 </main>
