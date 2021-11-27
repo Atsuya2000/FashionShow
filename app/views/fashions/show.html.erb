@@ -71,7 +71,7 @@
     </div>
     <div class="new-comment">
       <%= form_with(model:[@fashion, @fashion_comment], local: true) do |f| %>
-        <%= f.text_area :comment, rows:'5', size: "80x10", required: true %><br />
+        <%= f.text_area :comment, rows:'5', size: "80x5", required: true %><br />
         <%= f.submit "submit" %>
       <% end %>
     </div>
